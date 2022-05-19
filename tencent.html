@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>腾讯天气</title>
+    <link rel="shortcut icon" href="/Tencent Weather/favicon.ico">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/tencent.css">
+</head>
+<body>
+    <div class="weather">
+        <div class="header">
+            <div class="location_container">
+                <img src="/Tencent Weather/img/logo-c3cae1c3ef.png" alt="">
+                <div class="location">
+                <div class="loc_wh">
+                    <div class="loc_icon"></div>
+                        <p id="fir" pro="陕西">陕西</p>
+                        <p id="sec">西安</p>
+                    <div class="care_city">
+                            <p>关注的城市</p>
+                            <ul class="cities">
+                                <!-- <li style="font-size: 14px;
+                                color: #9f9f9f;
+                                text-align: center;
+                                line-height: 20px;
+                                left: 55px;">点击“添加关注”添加城市哟~</li> -->
+                                </ul>
+                    </div>
+                </div>
+                    <a class="add_care">[添加关注]</a>
+                    <input type="text" placeholder="搜索市、区、县等"class="search_box" id="search_box" oninput="iw()">
+                    <div class="search_city" id="search_city" style="display: none;">
+                        <div class="container" data-index="0">
+                            <p>当前定位</p>
+                            <ul class="present_position clearfix">
+                                <li class="opts" data-province="陕西" data-city="西安"><span>西安</span></li>
+                            </ul>
+                        </div>
+                        <div class="container" data-index="1" style="display: block;">
+                            <p>历史记录</p>
+                            <ul class="history clearfix">
+                                <!-- <li class="opts" data-province="北京" data-city="北京"><span>北京</span></li>
+                                <li class="opts" data-province="上海" data-city="上海"><span>上海</span></li>
+                                <li class="opts" data-province="广东" data-city="广州"><span>广州</span></li>
+                                <li class="opts" data-province="广东" data-city="深圳"><span>深圳</span></li> -->
+                            </ul>
+                            <div class="delete" style="cursor:pointer" onclick="clearHistory()">清除</div>
+                        </div>
+                        <div class="container" data-index="2">
+                            <p>热门城市</p>
+                            <ul class="top_cities clearfix">
+                                <li class="opts opts2" data-province="北京" data-city="北京"><span>北京</span></li>
+                                <li class="opts opts2" data-province="上海" data-city="上海"><span>上海</span></li>
+                                <li class="opts opts2" data-province="广东" data-city="广州"><span>广州</span></li>
+                                <li class="opts opts2" data-province="广东" data-city="深圳"><span>深圳</span></li>
+                                <li class="opts opts2" data-province="天津" data-city="天津"><span>天津</span></li>
+                                <li class="opts opts2" data-province="陕西" data-city="西安"><span>西安</span></li>
+                                <li class="opts opts2" data-province="湖北" data-city="武汉"><span>武汉</span></li>
+                                <li class="opts opts2" data-province="四川" data-city="成都"><span>成都</span></li>
+                                <li class="opts opts2" data-province="河北" data-city="石家庄"><span>石家庄</span></li>
+                                <li class="opts opts2" data-province="河南" data-city="郑州"><span>郑州</span></li>
+                                <li class="opts opts2" data-province="黑龙江" data-city="哈尔滨"><span>哈尔滨</span></li>
+                                <li class="opts opts2" data-province="山西" data-city="太原"><span>太原</span></li>
+                                <li class="opts opts2" data-province="新疆" data-city="乌鲁木齐"><span>乌鲁木齐</span></li>
+                                <li class="opts opts2" data-province="山东" data-city="济南"><span>济南</span></li>
+                                <li class="opts opts2" data-province="福建" data-city="福州"><span>福州</span></li>
+                                <li class="opts opts2" data-province="西藏" data-city="日喀则"><span>日喀则</span></li>
+                                <li class="opts opts2" data-province="福建" data-city="厦门"><span>厦门</span></li>
+                                <li class="opts opts2" data-province="山东" data-city="青岛"><span>青岛</span></li>
+                                <li class="opts opts2" data-province="江苏" data-city="扬州"><span>扬州</span></li>
+                                <li class="opts opts2" data-province="安徽" data-city="合肥"><span>合肥</span></li>
+                                <li class="opts opts2" data-province="重庆" data-city="重庆"><span>重庆</span></li>
+                                <li class="opts opts2" data-province="江西" data-city="南昌"><span>南昌</span></li>
+                                <li class="opts opts2" data-province="河北" data-city="唐山"><span>唐山</span></li>
+                                <li class="opts opts2" data-province="浙江" data-city="杭州"><span>杭州</span></li>
+                                <li class="opts opts2" data-province="河北" data-city="邢台"><span>邢台</span></li>
+                                <li class="opts opts2" data-province="辽宁" data-city="沈阳"><span>沈阳</span></li>
+                                <li class="opts opts2" data-province="河北" data-city="邯郸"><span>邯郸</span></li>
+                                <li class="opts opts2" data-province="云南" data-city="昆明"><span>昆明</span></li>
+                            </ul>
+                            </div>
+                            </div>
+                    <div class="search_wr" style="display: none" id="search_wr">
+                        <ul id="myul">
+                        </ul>
+                    </div>
+                </div>
+                <div class="help">最多只能添加5个城市</div>
+            </div>
+        </div>
+        <div class="content clearfix">
+            <div class="present_wea">
+                <div class="wea_det">
+                    <p class="data_resourse"></p>
+                    <div class="base_info">
+                        <div class="temp"></div>
+                        <div class="wea_sta"></div>
+                        <div class="air">
+                            <div></div>
+                            <span></span>
+                        </div>
+                    </div>
+                    <ul class="det_info">
+                        <li class="wind">
+                            <div></div>
+                            <span></span>
+                        </li>
+                        <li class="humidity">
+                            <div></div>
+                            <span></span>
+                        </li>
+                        <li class="pressure">
+                            <div></div>
+                            <span></span>
+                        </li>
+                    </ul>
+                    <div class="words">
+                        <p id="text_tip">现在的温度比较舒适~</p>
+                        <a id="fake_bu"></a>
+                    </div>
+                </div>
+                <div class="wea_icon"><img src="./imagee/02.png" alt="" id="big_icon"></div>
+            </div>
+
+            <div class="each_hour shadow">
+                <div class="title_hour">
+                    <p>
+                        逐小时预报
+                        <a href="">数据来自中国天气网</a>
+                    </p>
+                    <button class="scroll_left" onclick="leftclick1()"></button>
+                    <button class="scroll_right" onclick="rightclick1()"></button>
+                </div>
+                <ul class="content_hour">
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                    <li class="each_info">
+                        <div class="info_title"></div>
+                        <img src=" " class="info_icon">
+                        <div class="info_temp"></div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="each_day shadow">
+                <div class="title_bar">
+                    <p>7日天气预报</p>
+                    <a href="">15日天气预报</a>
+                </div>
+
+                <ul class="info_container" style="left: 25px;">
+                    <li class="each_info" style="opacity: 0.3;">
+                        <div class="info_title1">昨天</div>
+                        <div class="info_date"></div>
+                        <div class="max status">
+                            <div class="status_title"></div>
+                            <img src="./images/02.png" alt="" class="status_icon">
+                            <div class="status_temp"></div>
+                        </div>
+                        <div class="min status">
+                            <div class="status_temp1"></div>
+                            <img src="./images/02.png" alt="" class="status_icon1">
+                            <div class="status_title1"> </div>
+                        </div>
+                        <div class="wind1"></div>
+                    </li>
+
+                    <li class="each_info" style="background: #f8faff;    height: 447px;
+                    width: 75px;
+                ">
+                        <div class="info_title1">今天</div>
+                        <div class="info_date"></div>
+                        <div class="max status">
+                            <div class="status_title"> </div>
+                            <img src="./images/02.png" alt="" class="status_icon">
+                            <div class="status_temp"></div>
+                        </div>
+                        <div class="min status">
+                            <div class="status_temp1"></div>
+                            <img src="./images/02.png" alt="" class="status_icon1">
+                            <div class="status_title1"> </div>
+                        </div>
+                        <div class="wind1"></div>
+                    </li>
+
+                    <li class="each_info">
+                        <div class="info_title1">明天</div>
+                        <div class="info_date"></div>
+                        <div class="max status">
+                            <div class="status_title"> </div>
+                            <img src="./images/02.png" alt="" class="status_icon">
+                            <div class="status_temp"></div>
+                        </div>
+                        <div class="min status">
+                            <div class="status_temp1"></div>
+                            <img src="./images/02.png" alt="" class="status_icon1">
+                            <div class="status_title1"> </div>
+                        </div>
+                        <div class="wind1"></div>
+                    </li>
+
+                    <li class="each_info">
+                        <div class="info_title1">后天</div>
+                        <div class="info_date"></div>
+                        <div class="max status">
+                            <div class="status_title"></div>
+                            <img src="./images/02.png" alt="" class="status_icon">
+                            <div class="status_temp"></div>
+                        </div>
+                        <div class="min status">
+                            <div class="status_temp1"></div>
+                            <img src="./images/02.png" alt="" class="status_icon1">
+                            <div class="status_title1"></div>
+                        </div>
+                        <div class="wind1"></div>
+                    </li>
+
+                    <li class="each_info">
+                        <div class="info_title1">今天</div>
+                        <div class="info_date"></div>
+                        <div class="max status">
+                            <div class="status_title"> </div>
+                            <img src="./images/02.png" alt="" class="status_icon">
+                            <div class="status_temp"></div>
+                        </div>
+                        <div class="min status">
+                            <div class="status_temp1"></div>
+                            <img src="./images/02.png" alt="" class="status_icon1">
+                            <div class="status_title1"> </div>
+                        </div>
+                        <div class="wind1"></div>
+                    </li>
+
+                    <li class="each_info">
+                        <div class="info_title1">今天</div>
+                        <div class="info_date"></div>
+                        <div class="max status">
+                            <div class="status_title"> </div>
+                            <img src="./images/02.png" alt="" class="status_icon">
+                            <div class="status_temp"></div>
+                        </div>
+                        <div class="min status">
+                            <div class="status_temp1"></div>
+                            <img src="./images/02.png" alt="" class="status_icon1">
+                            <div class="status_title1"></div>
+                        </div>
+                        <div class="wind1"></div>
+                    </li>
+
+                    <li class="each_info">
+                        <div class="info_title1">今天</div>
+                        <div class="info_date"></div>
+                        <div class="max status">
+                            <div class="status_title"> </div>
+                            <img src="./images/02.png" alt="" class="status_icon">
+                            <div class="status_temp"></div>
+                        </div>
+                        <div class="min status">
+                            <div class="status_temp1"></div>
+                            <img src="./images/02.png" alt="" class="status_icon1">
+                            <div class="status_title1"> </div>
+                        </div>
+                        <div class="wind1"></div>
+                    </li>
+
+                    <li class="each_info">
+                        <div class="info_title1">今天</div>
+                        <div class="info_date"></div>
+                        <div class="max status">
+                            <div class="status_title"> </div>
+                            <img src="./images/02.png" alt="" class="status_icon">
+                            <div class="status_temp"></div>
+                        </div>
+                        <div class="min status">
+                            <div class="status_temp1"></div>
+                            <img src="./images/02.png" alt="" class="status_icon1">
+                            <div class="status_title1"> </div>
+                        </div>
+                        <div class="wind1"></div>
+                    </li>
+                </ul>
+
+                <div id="chart">
+                    <div style="position: relative; width: 640px; height: 105px; padding: 0px; margin: 0px; border-width: 0px;">
+                        <canvas id = "canvas" width="640" height="105" style="position: absolute; left: 0px; top: 0px; width: 640px; height: 105px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="live_index">
+                <div class="title_bar">
+                    <p>生活指数</p>
+                    <button class="scroll_left" onclick="leftclick2()"></button>
+                    <button class="scroll_right" onclick="rightclick2()"></button>
+                </div>
+
+                <div class="info_container">
+                    <ul class="page">
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="background-position: -74px -117px;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        <p></p>
+                                        <p>宜：</p>
+                                        <p>忌：</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="background-position: 0 -154px;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="background-position: -154px -74px;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        <p></p>
+                                        <p>宜：</p>
+                                        <p>忌：</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="background-position: -117px -74px;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="background-position: -74px -154px;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="background-position: -154px -111px;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="background-position: -154px -37px;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="background-position: -154px 0;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="    background-position: -37px -43px;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="background-position: 0 -43px;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="background-position: -37px -117px;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="each_info">
+                            <div class="scroll_view">
+                                <div class="p1">
+                                    <div class="info_icon" style="background-position: -74px -80px;"></div>
+                                    <div class="info_text"></div>
+                                    <div class="info_category"></div>
+                                </div>
+                                <div class="p2">
+                                    <div class="info_detail">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="data_sourse">
+                <img src="./img/气象局.png" alt="">
+                <img src="./img/气象台.png" alt="">
+                <img src="./img/中国天气.png" alt="">
+            </div>
+            <ul class="related_web">
+                <li><a href="">关于腾讯</a></li>
+                <li><a href="">About Tencent</a></li>
+                <li><a href="">服务协议</a></li>
+                <li><a href="">隐私政策</a></li>
+                <li><a href="">开放平台</a></li>
+                <li><a href="">广告服务</a></li>
+                <li><a href="">腾讯招聘</a></li>
+                <li><a href="">腾讯公益</a></li>
+                <li><a href="">客服中心</a></li>
+                <li><a href="">举报中心</a></li>
+                <li><a href="">导航网站</a></li>
+            </ul>
+            <div class="copy_right">Copyright © 1998 - 2021 Tencent. All Rights Reserved</div>
+            <ul class="last_last">
+                <li><a href="">腾讯公司</a></li>
+                <li><a href="">版权所有</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="./js/jquery.js"></script>
+
+    <script >
+        document.addEventListener("click",clickHidden);
+        var box = document.getElementById('search_city');
+        var box1 = document.getElementById('search_wr');
+        var myinput = document.getElementById('search_box').value;
+        function clickHidden(eve)
+        {
+            if( eve.target.id!="search_box")//点击的如果不是菜单，菜单隐藏。如果是菜单，菜单显现
+        	{
+                setTimeout(function(){
+                 box.style.display="none";
+                },500)
+                box1.style.display="none";
+            }
+            else{
+                box.style.display="block";
+            }
+        }
+
+        function leftclick1 (){
+            document.getElementsByClassName('content_hour')[0].style.left = '25px';
+        }
+
+        function leftclick2 (){
+            document.getElementsByClassName('info_container')[1].style.left = '0px';
+        }
+
+        function rightclick1 (){
+            document.getElementsByClassName('content_hour')[0].style.left = '-1180px';
+        }
+
+        function rightclick2 (){
+            document.getElementsByClassName('info_container')[1].style.left = '-430px';
+        }
+    </script>
+
+    <script src="./js/jsonp.js"></script>
+
+    <script src="./js/compare.js"></script>
+
+    <script src="./js/change.js"></script>
+
+    <script src="./js/change1.js"></script>
+
+    <script src="./js/change2.js"></script>
+
+    <script src="./js/change3.js"></script>
+
+    <script src="./js/tencan.js"></script>
+    
+    <script src="./js/weather.js"></script>
+</body>
+</html>
